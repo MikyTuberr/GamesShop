@@ -9,7 +9,8 @@ namespace shop.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public required string Name { get; set; }
-        public string? Description { get; set; }
+        public required string Description { get; set; }
+        public required string Genre { get; set; }
         public required bool IsOnSale { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]

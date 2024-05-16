@@ -21,14 +21,14 @@
                                         </div>
                                         <div class="cart_item_color cart_info_col">
                                             <div class="cart_item_title">Genre</div>
-                                            <div class="cart_item_text">RPG</div>
+                                            <div class="cart_item_text">@item.Game.Genre</div>
                                         </div>
                                         <div class="cart_item_quantity cart_info_col">
                                             <div class="cart_item_title">Quantity</div>
                                             <div class="cart_item_text">@item.Quantity</div>
                                             <div class="quantity_buttons">
                                                 <button onclick="window.location.href='@Url.Action("DecreaseQuantityOfItemInCart", "Cart", new { gameId = item.Game.Id })'" class="quantity_button" data-action="decrease">-</button>
-                                                <button href="#" class="quantity_button" data-action="increase">+</button>
+                                                <button onclick="window.location.href='@Url.Action("IncreaseQuantityOfItemInCart", "Cart", new { gameId = item.Game.Id })'" class="quantity_button" data-action="increase">+</button>
                                             </div>
                                         </div>
                                         <div class="cart_item_price cart_info_col">
@@ -55,8 +55,8 @@
                         </div>
                     }
                     <div class="cart_buttons">
-                        <button type="button" class="button cart_button_clear">Back To Shopping</button>
-                        <button type="button" class="button cart_button_checkout">Continue ($@(Model.Sum(item => item.Game.Price * item.Quantity)))</button>
+                        <button type="button" onclick="window.location.href='@Url.Action("Index", "Home")'" class="button cart_button_clear">Back To Shopping</button>
+                        <button type="button" onclick="window.location.href='@Url.Action("Checkout", "Cart")'" class="button cart_button_checkout">Continue ($@(Model.Sum(item => item.Game.Price * item.Quantity)))</button>
                     </div>
                 </div>
             </div>

@@ -20,6 +20,7 @@ namespace shop.Controllers
         {
             if (!Request.Cookies.ContainsKey("clientId"))
             {
+                Response.Cookies.Append("cartItemCount", "0");
                 var clientId = Guid.NewGuid().ToString();
                 Response.Cookies.Append("clientId", clientId);
             }

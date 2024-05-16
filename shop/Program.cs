@@ -16,7 +16,7 @@ var app = builder.Build();
 
 //if (args.Length == 1 && args[0].ToLower() == "seeddata")
 //{
-    Seed.SeedGames(app);
+    //Seed.SeedGames(app);
 //}
 
 // Configure the HTTP request pipeline.

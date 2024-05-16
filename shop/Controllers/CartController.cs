@@ -18,6 +18,13 @@ namespace shop.Controllers
             _context = context;
         }
 
+        public IActionResult Checkout()
+        {
+            string clientId = Request.Cookies["clientId"];
+            Cart cart = _context.Carts.Include(c => c.GamesAndQuantities).ThenInclude(gq => gq.Game).FirstOrDefault(c => c.ClientId == clientId);
+            return View(cart.GamesAndQuantities);
+        }
+
         public IActionResult Index()
         {
             string clientId = Request.Cookies["clientId"];
@@ -118,6 +125,27 @@ namespace shop.Controllers
 
             return RedirectToAction("Index", "Cart");
         }
+
+        public IActionResult IncreaseQuantityOfItemInCart(int gameId)
+        {
+            string clientId = Request.Cookies["clientId"];
+            Cart cart = _context.Carts.Include(c => c.GamesAndQuantities).ThenInclude(gq => gq.Game).FirstOrDefault(c => c.ClientId == clientId);
+
+            if (cart != null)
+            {
+                var existingItem = cart.GamesAndQuantities.FirstOrDefault(gq => gq.Game.Id == gameId);
+
+                if (existingItem != null)
+                {
+                    existingItem.Quantity++;
+                    UpdateCartItemCountCookie(cart);
+                    _context.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Index", "Cart");
+        }
+
 
         public IActionResult RemoveItemFromCart(int gameId)
         {
