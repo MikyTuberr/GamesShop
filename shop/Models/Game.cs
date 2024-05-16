@@ -6,7 +6,8 @@ namespace shop.Models
     public class Game
     {
         [Key]
-        public required string Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public required string Name { get; set; }
         public string? Description { get; set; }
         public required bool IsOnSale { get; set; }

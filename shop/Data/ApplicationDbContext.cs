@@ -11,5 +11,7 @@ namespace shop.data
         }
 
         public DbSet<Game> Games { get; set; }
+
+        public DbSet<Cart> Carts { get; set; }
     }
 }

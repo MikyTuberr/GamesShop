@@ -3,82 +3,99 @@
     var games = ViewData["Games"] as List<Game>;
 }
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Shop Item - Start Bootstrap Template</title>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Item - Start Bootstrap Template</title>
 
-        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    </head>
-    <body>
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@game.ImagePath" alt="@game.Alt" /></div>
-                    <div class="col-md-6">
-                        <!--<div class="small mb-1">SKU: BST-498</div>-->
-                        <h1 class="display-5 fw-bolder">@game.Name</h1>
-                        <div class="fs-5 mb-5">
-                            @if (game.IsOnSale)
-                            {
-                            <span class="text-decoration-line-through">$@game.PriceAfterSale</span>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+</head>
+<body>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@game.ImagePath" alt="@game.Alt" /></div>
+                <div class="col-md-6">
+                    <!--<div class="small mb-1">SKU: BST-498</div>-->
+                    <h1 class="display-5 fw-bolder">@game.Name</h1>
+                    <div class="fs-5 mb-5">
+                        @if (game.IsOnSale)
+                        {
+                        <span class="text-decoration-line-through">$@game.PriceAfterSale</span>
+                        }
+                        <span>$@game.Price</span>
+                    </div>
+                    <p class="lead">@game.Description</p>
+                    <div class="d-flex">
+                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                        <button onclick="addToCart()" class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <i class="bi-cart-fill me-1"></i>
+                            Add to cart
+                        </button>
+
+                        <script>
+                            function addToCart() {
+                                var quantity = document.getElementById("inputQuantity").value;
+                                console.log(quantity)
+                                var gameId = '@game.Id';
+                                var path = 'Details'; 
+                                window.location.href = '@Url.Action("AddToCartWithQuantity", "Cart")' + '?gameId=' + gameId + '&quantity=' + quantity + '&Path=' + path;
                             }
-                            <span>$@game.Price</span>
-                        </div>
-                        <p class="lead">@game.Description</p>
-                        <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
-                        </div>
+                        </script>
+
                     </div>
                 </div>
             </div>
-        </section>
-        <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Related products</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    @foreach (var item in games)
-                    {
-                        <div class="col mb-5">
-                            <div class="card h-100">
-                                @if (item.IsOnSale)
-                                {
-                                    <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                                }
-                                <img class="card-img-top" src="@item.ImagePath" alt="@item.Alt" />
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder">@item.Name</h5>
-                                        @if (item.IsOnSale && item.PriceAfterSale != null)
-                                        {
-                                            <span class="text-decoration-line-through">$@item.Price</span>
-                                            <span>$@item.PriceAfterSale</span>
-                                        }
-                                        else
-                                        {
-                                            <span>$@item.Price</span>
-                                        }
-                                    </div>
-                                </div>
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+        </div>
+    </section>
+    <section class="py-5 bg-light">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h2 class="fw-bolder mb-4">Related products</h2>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                @foreach (var item in games)
+                {
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            @if (item.IsOnSale)
+                            {
+                                <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                            }
+                        <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id"><img class="card-img-top" src="@item.ImagePath" alt="@item.Alt" /></a>
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">@item.Name</h5>
+                                    @if (item.IsOnSale && item.PriceAfterSale != null)
+                                    {
+                                        <span class="text-decoration-line-through">$@item.Price</span>
+                                        <span>$@item.PriceAfterSale</span>
+                                    }
+                                    else
+                                    {
+                                        <span>$@item.Price</span>
+                                    }
                                 </div>
                             </div>
+                            <div class="btn-group">
+                                <button onclick="window.location.href='@Url.Action("Details", "Home", new { id = item.Id })'" class="btn btn-sm btn-outline-secondary">View</button>
+                                <button type="button" onclick="addToCart2('@item.Id')" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+
+                                <script>
+                                    function addToCart2(gameId) {
+                                        var path = 'Details';
+                                        window.location.href = '@Url.Action("AddToCartWithQuantity", "Cart")' + '?gameId=' + gameId + '&quantity=1' + '&Path=' + path;
+                                    }
+                                </script>
+                            </div>
                         </div>
-                    } 
-                </div>
+                    </div>
+                } 
             </div>
-        </section>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-</html>
+        </div>
+    </section>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+

@@ -18,11 +18,17 @@ namespace shop.Controllers
 
         public IActionResult Index()
         {
+            if (!Request.Cookies.ContainsKey("clientId"))
+            {
+                var clientId = Guid.NewGuid().ToString();
+                Response.Cookies.Append("clientId", clientId);
+            }
+
             List<Game> games = _context.Games.ToList();
             return View(games);
         }
 
-        public IActionResult Details(string id)
+        public IActionResult Details(int id)
         {
             Game game = _context.Games.FirstOrDefault(g => g.Id == id);
             List<Game> games = _context.Games.ToList();

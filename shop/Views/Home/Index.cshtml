@@ -34,14 +34,22 @@
                             {
                                 <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             }
-                            <img src="@item.ImagePath" alt="@item.Alt" width="100%" height="225"/>
+                            <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id"><img src="@item.ImagePath" alt="@item.Alt" width="100%" height="225" /></a>
                             <div class="card-body">
                                 <p class="card-text">@item.Name</p>
                                 <p class="card-text">@item.Description</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <button onclick="window.location.href='@Url.Action("Details", "Home", new { id = item.Id })'" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+                                        <button type="button" onclick="addToCart('@item.Id')" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+                                        <script>
+                                            function addToCart(gameId) {
+                                                var path = 'Index';
+                                                window.location.href = '@Url.Action("AddToCartWithQuantity", "Cart")' + '?gameId=' + gameId + '&quantity=1' + '&Path=' + path;
+                                            }
+                                        </script>
+
+
                                     </div>
                                     <div class="text-center">
                                         @if (item.IsOnSale && item.PriceAfterSale != null)
