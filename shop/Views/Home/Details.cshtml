@@ -1,6 +1,9 @@
-﻿@{
-    var game = ViewData["Game"] as Game;
-    var games = ViewData["Games"] as List<Game>;
+﻿@using shop.ViewModels
+@model HomeDetailsViewModel
+
+@{
+    var game = Model.Game;
+    var games = Model.Games;
 }
 
 <head>

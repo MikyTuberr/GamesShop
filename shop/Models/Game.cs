@@ -7,7 +7,7 @@ namespace shop.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id { get; set; } 
         public required string Name { get; set; }
         public required string Description { get; set; }
         public required string Genre { get; set; }
@@ -20,5 +20,10 @@ namespace shop.Models
         public decimal? PriceAfterSale { get; set; }
         public required string ImagePath { get; set; }
         public required string Alt {  get; set; }
+
+        public static explicit operator Game(Task<Game> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

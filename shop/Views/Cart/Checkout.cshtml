@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GameAndQuantity>
+﻿@using shop.ViewModels
+@model CartViewModel
   
 <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
 <link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -19,12 +20,12 @@
           <div class="col-md-5 col-lg-4 order-md-last">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
               <span class="text-primary">Your cart</span>
-              <span class="badge bg-primary rounded-pill">@Model.Sum(g => g.Quantity)</span>
+              <span class="badge bg-primary rounded-pill">@Model.GamesAndQuantities.Sum(g => g.Quantity)</span>
             </h4>
             <ul class="list-group mb-3">
                 @{
                     decimal totalPrice = 0;
-                    foreach (var item in Model)
+                    foreach (var item in Model.GamesAndQuantities)
                     {
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>

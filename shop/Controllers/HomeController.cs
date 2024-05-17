@@ -1,41 +1,56 @@
 using Microsoft.AspNetCore.Mvc;
 using shop.data;
+using shop.Interfaces;
 using shop.Models;
+using shop.ViewModels;
 using System.Diagnostics;
 
 namespace shop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _context;
+        private readonly IHomeRepository _homeRepository;
+        private readonly ICookieService _cookieService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(IHomeRepository homeRepository, ICookieService homeService)
         {
-            _logger = logger;
-            _context = context;
+            _homeRepository = homeRepository;
+            _cookieService = homeService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> IndexAsync()
         {
-            if (!Request.Cookies.ContainsKey("clientId"))
+            if (!_cookieService.CookieExists("clientId"))
             {
-                Response.Cookies.Append("cartItemCount", "0");
+                _cookieService.SetCookie("cartItemCount", "0");
                 var clientId = Guid.NewGuid().ToString();
-                Response.Cookies.Append("clientId", clientId);
+                _cookieService.SetCookie("clientId", clientId);
             }
 
-            List<Game> games = _context.Games.ToList();
-            return View(games);
+            var games = await _homeRepository.GetAll();
+            var viewModel = new HomeIndexViewModel 
+            { 
+                Games = games 
+            };
+
+            return View(viewModel);
         }
 
-        public IActionResult Details(int id)
+        [HttpGet]
+        [Route("Details")]
+        public async Task<IActionResult> Details(int id)
         {
-            Game game = _context.Games.FirstOrDefault(g => g.Id == id);
-            List<Game> games = _context.Games.ToList();
-            ViewData["Game"] = game;
-            ViewData["Games"] = games;
-            return View();
+            var game = await _homeRepository.GetByIdAsync(id);
+            var games = await _homeRepository.GetAll();
+
+            var viewModel = new HomeDetailsViewModel
+            {
+                Game = game,
+                Games = games 
+            };
+
+            return View(viewModel);
         }
 
 
