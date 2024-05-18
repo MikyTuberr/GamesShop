@@ -22,7 +22,6 @@
             <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@game.ImagePath" alt="@game.Alt" /></div>
                 <div class="col-md-6">
-                    <!--<div class="small mb-1">SKU: BST-498</div>-->
                     <h1 class="display-5 fw-bolder">@game.Name</h1>
                     <div class="fs-5 mb-5">
                         @if (game.IsOnSale)
@@ -84,15 +83,8 @@
                                     </div>
                                 </div>
                                 <div class="btn-group">
-                                    <button onclick="window.location.href='@Url.Action("Details", "Home", new { id = item.Id })'" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" onclick="addToCart2('@item.Id')" class="btn btn-sm btn-outline-secondary">Add to cart</button>
-
-                                    <script>
-                                        function addToCart2(gameId) {
-                                            var path = 'Details';
-                                            window.location.href = '@Url.Action("AddToCartWithQuantity", "Cart")' + '?gameId=' + gameId + '&quantity=1' + '&Path=' + path;
-                                        }
-                                    </script>
+                                    <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">View</a>
+                                    <a asp-area="" asp-controller="Cart" asp-action="AddToCartWithQuantity" asp-route-gameId="@item.Id" asp-route-quantity="1" asp-route-Path="Details" class="btn btn-sm btn-outline-secondary">Add to cart</a>
                                 </div>
                             </div>
                         </div>

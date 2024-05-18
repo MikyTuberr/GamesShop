@@ -16,10 +16,6 @@
                     Discover the latest and greatest games for all platforms – PC, console, and mobile. Whether you're into RPGs, shooters, adventures, or sports, we've got you covered.
                     Explore our collection, find your favorites, and dive into the exciting world of gaming!
                 </p>
-                <!--<p>
-                    <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                    <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-                </p>-->
             </div>
         </div>
     </section>
@@ -41,16 +37,8 @@
                                 <p class="card-text">@item.Description</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button onclick="window.location.href='@Url.Action("Details", "Home", new { id = item.Id })'" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" onclick="addToCart('@item.Id')" class="btn btn-sm btn-outline-secondary">Add to cart</button>
-                                        <script>
-                                            function addToCart(gameId) {
-                                                var path = 'Index';
-                                                window.location.href = '@Url.Action("AddToCartWithQuantity", "Cart")' + '?gameId=' + gameId + '&quantity=1' + '&Path=' + path;
-                                            }
-                                        </script>
-
-
+                                        <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">View</a>
+                                        <a asp-area="" asp-controller="Cart" asp-action="AddToCartWithQuantity" asp-route-gameId="@item.Id" asp-route-quantity="1" asp-route-Path="Index" class="btn btn-sm btn-outline-secondary">Add to cart</a>
                                     </div>
                                     <div class="text-center">
                                         @if (item.IsOnSale && item.PriceAfterSale != null)

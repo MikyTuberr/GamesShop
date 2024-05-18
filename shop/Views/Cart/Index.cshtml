@@ -28,8 +28,8 @@
                                             <div class="cart_item_title">Quantity</div>
                                             <div class="cart_item_text">@item.Quantity</div>
                                             <div class="quantity_buttons">
-                                                <button onclick="window.location.href='@Url.Action("DecreaseQuantityOfItemInCart", "Cart", new { gameId = item.Game.Id })'" class="quantity_button" data-action="decrease">-</button>
-                                                <button onclick="window.location.href='@Url.Action("IncreaseQuantityOfItemInCart", "Cart", new { gameId = item.Game.Id })'" class="quantity_button" data-action="increase">+</button>
+                                                <a asp-area="" asp-controller="Cart" asp-action="DecreaseQuantityOfItemInCart" asp-route-gameId="@item.Game.Id" class="quantity_button" data-action="decrease">-</a>
+                                                <a asp-area="" asp-controller="Cart" asp-action="IncreaseQuantityOfItemInCart" asp-route-gameId="@item.Game.Id" class="quantity_button" data-action="increase">+</a>
                                             </div>
                                         </div>
                                         <div class="cart_item_price cart_info_col">
@@ -49,15 +49,15 @@
                                             <div class="cart_item_title">Total</div>
                                             <div class="cart_item_text">$@(item.Game.Price * item.Quantity)</div>
                                         </div>
-                                        <a onclick="window.location.href='@Url.Action("RemoveItemFromCart", "Cart", new { gameId = item.Game.Id })'" class="btn btn-light" data-abc="true"> Remove</a>
+                                        <a asp-area="" asp-controller="Cart" asp-action="RemoveItemFromCart" asp-route-gameId="@item.Game.Id" class="btn btn-light" data-abc="true">Remove</a>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     }
                     <div class="cart_buttons">
-                        <button type="button" onclick="window.location.href='@Url.Action("Index", "Home")'" class="button cart_button_clear">Back To Shopping</button>
-                        <button type="button" onclick="window.location.href='@Url.Action("Checkout", "Cart")'" class="button cart_button_checkout">Continue ($@(Model.GamesAndQuantities.Sum(item => item.Game.Price * item.Quantity)))</button>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="button cart_button_clear">Back To Shopping</a>
+                        <a asp-area ="" asp-controller="Cart" asp-action="Checkout" class="button cart_button_checkout">Continue ($@(Model.GamesAndQuantities.Sum(item => item.Game.Price * item.Quantity)))</a>
                     </div>
                 </div>
             </div>

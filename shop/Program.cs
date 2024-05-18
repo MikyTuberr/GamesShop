@@ -11,7 +11,6 @@ using shop.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IHomeRepository, HomeRepository>();
 builder.Services.AddScoped<ICookieService, CookieService>();
@@ -53,7 +52,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Make sure to add this line
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllerRoute(

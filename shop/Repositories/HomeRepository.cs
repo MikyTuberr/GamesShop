@@ -2,7 +2,6 @@
 using shop.Interfaces;
 using shop.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity.Infrastructure;
 
 namespace shop.Repositories
 {
@@ -15,17 +14,27 @@ namespace shop.Repositories
             _context = context;
         }
 
-        public bool Add(Game game)
+
+        public bool Add<T>(T entity)
         {
-            _context.Add(game);
+            if (entity == null)
+            {
+                return false;
+            }
+            _context.Add(entity);
             return Save();
         }
 
-        public bool Delete(Game game)
+        public bool Delete<T>(T entity)
         {
-            _context.Remove(game);
+            if (entity == null)
+            {
+                return false;
+            }
+            _context.Remove(entity);
             return Save();
         }
+
 
         public async Task<IEnumerable<Game>> GetAll()
         {
@@ -37,20 +46,20 @@ namespace shop.Repositories
             return await _context.Games.FirstOrDefaultAsync(g => g.Id == id);
         }
 
-        public bool Update(Game game)
-        {
-            _context.Update(game);
-            return Save();
-        }
         public bool Save()
         {
             var saved = _context.SaveChanges();
             return saved > 0;
         }
 
-        public IDbAsyncEnumerator GetAsyncEnumerator()
+        public bool Update<T>(T entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                return false;
+            }
+            _context.Update(entity);
+            return Save();
         }
     }
 }

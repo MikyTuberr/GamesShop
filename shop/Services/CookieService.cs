@@ -1,6 +1,6 @@
-﻿using Azure;
+﻿using Microsoft.AspNetCore.Http;
 using shop.Interfaces;
-using shop.Models;
+using System;
 
 namespace shop.Services
 {
@@ -15,6 +15,12 @@ namespace shop.Services
 
         public void SetCookie(string key, string value, int? expireTime = null)
         {
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
+            {
+                throw new InvalidOperationException("HttpContext is null.");
+            }
+
             CookieOptions option = new CookieOptions();
 
             if (expireTime.HasValue)
@@ -22,22 +28,40 @@ namespace shop.Services
             else
                 option.Expires = DateTime.Now.AddDays(7);
 
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, option);
+            httpContext.Response.Cookies.Append(key, value, option);
         }
 
-        public string GetCookie(string key)
+        public string? GetCookie(string key)
         {
-            return _httpContextAccessor.HttpContext.Request.Cookies[key];
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
+            {
+                throw new InvalidOperationException("HttpContext is null.");
+            }
+
+            return httpContext.Request.Cookies[key];
         }
 
         public bool CookieExists(string key)
         {
-            return _httpContextAccessor.HttpContext.Request.Cookies.ContainsKey(key);
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
+            {
+                throw new InvalidOperationException("HttpContext is null.");
+            }
+
+            return httpContext.Request.Cookies.ContainsKey(key);
         }
 
         public void DeleteCookie(string key)
         {
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(key);
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
+            {
+                throw new InvalidOperationException("HttpContext is null.");
+            }
+
+            httpContext.Response.Cookies.Delete(key);
         }
     }
 }

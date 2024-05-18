@@ -44,6 +44,11 @@ namespace shop.Controllers
             var game = await _homeRepository.GetByIdAsync(id);
             var games = await _homeRepository.GetAll();
 
+            if (game == null || games == null)
+            {
+                throw new InvalidOperationException("HttpContext is null.");
+            }
+
             var viewModel = new HomeDetailsViewModel
             {
                 Game = game,

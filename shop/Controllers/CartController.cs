@@ -24,7 +24,11 @@ namespace shop.Controllers
         [HttpGet]
         public async Task<IActionResult> IndexAsync()
         {
-            string clientId = _cookieService.GetCookie("clientId");
+            var clientId = _cookieService.GetCookie("clientId");
+            if(clientId == null)
+            {
+                throw new InvalidOperationException("clientId is null");
+            }
             var cart = await _cartRepository.GetCartByClientId(clientId);
             if (cart == null)
             {
@@ -42,8 +46,17 @@ namespace shop.Controllers
         [HttpGet]
         public async Task<IActionResult> CheckoutAsync()
         {
-            string clientId = _cookieService.GetCookie("clientId");
+            var clientId = _cookieService.GetCookie("clientId");
+            if (clientId == null)
+            {
+                throw new InvalidOperationException("clientId is null");
+            }
             var cart = await _cartRepository.GetCartByClientId(clientId);
+
+            if (cart == null)
+            {
+                throw new InvalidOperationException("Cart is null.");
+            }
 
             var viewModel = new CartViewModel
             {
@@ -56,7 +69,11 @@ namespace shop.Controllers
         [HttpGet]
         public async Task<IActionResult> AddToCartWithQuantityAsync(int gameId, int quantity, string path)
         {
-            string clientId = _cookieService.GetCookie("clientId");
+            var clientId = _cookieService.GetCookie("clientId");
+            if (clientId == null)
+            {
+                throw new InvalidOperationException("clientId is null");
+            }
             var cart = await _cartRepository.GetCartByClientId(clientId);
 
             if (cart == null)
@@ -103,7 +120,11 @@ namespace shop.Controllers
 
         public async Task<IActionResult> DecreaseQuantityOfItemInCartAsync(int gameId)
         {
-            string clientId = _cookieService.GetCookie("clientId");
+            var clientId = _cookieService.GetCookie("clientId");
+            if (clientId == null)
+            {
+                throw new InvalidOperationException("clientId is null");
+            }
             var cart = await _cartRepository.GetCartByClientId(clientId);
             if (cart != null)
             {
@@ -133,7 +154,11 @@ namespace shop.Controllers
 
         public async Task<IActionResult> IncreaseQuantityOfItemInCartAsync(int gameId)
         {
-            string clientId = _cookieService.GetCookie("clientId");
+            var clientId = _cookieService.GetCookie("clientId");
+            if (clientId == null)
+            {
+                throw new InvalidOperationException("clientId is null");
+            }
             var cart = await _cartRepository.GetCartByClientId(clientId);
 
             if (cart != null)
@@ -153,7 +178,11 @@ namespace shop.Controllers
 
         public async Task<IActionResult> RemoveItemFromCartAsync(int gameId)
         {
-            string clientId =_cookieService.GetCookie("clientId");
+            var clientId =_cookieService.GetCookie("clientId");
+            if (clientId == null)
+            {
+                throw new InvalidOperationException("clientId is null");
+            }
             var cart = await _cartRepository.GetCartByClientId(clientId);
 
             if (cart != null)
@@ -163,7 +192,6 @@ namespace shop.Controllers
                 if (existingItem != null)
                 {
                     cart.GamesAndQuantities.Remove(existingItem);
-                    //tODO bo w bazie nie zmieniam
                     _cartRepository.Update(existingItem);
 
                     if (cart.GamesAndQuantities.Count == 0)

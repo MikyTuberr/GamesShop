@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Nobisoft.Core.SnowflakeId;
 using shop.data;
 using shop.Interfaces;
 using shop.Models;
@@ -14,27 +13,23 @@ namespace shop.Repositories
             _context = context;
         }
 
-        public bool Add(Cart cart)
+        public bool Add <T>(T entity)
         {
-            _context.Add(cart);
+            if (entity == null)
+            {
+                return false;
+            }
+            _context.Add(entity);
             return Save();
         }
 
-        public bool Add(GameAndQuantity gameAndQuantity)
+        public bool Delete<T>(T entity)
         {
-            _context.Add(gameAndQuantity);
-            return Save();
-        }
-
-        public bool Delete(Cart cart)
-        {
-            _context.Remove(cart);
-            return Save();
-        }
-
-        public bool Delete(GameAndQuantity gameAndQuantity)
-        {
-            _context.Remove(gameAndQuantity);
+            if (entity == null)
+            {
+                return false;
+            }
+            _context.Remove(entity);
             return Save();
         }
 
@@ -57,15 +52,13 @@ namespace shop.Repositories
             return saved > 0;
         }
 
-        public bool Update(Cart cart)
+        public bool Update<T>(T entity)
         {
-            _context.Update(cart);
-            return Save();
-        }
-
-        public bool Update(GameAndQuantity gameAndQuantity)
-        {
-            _context.Update(gameAndQuantity);
+            if(entity == null)
+            {
+                return false;
+            }
+            _context.Update(entity);
             return Save();
         }
     }
