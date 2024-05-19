@@ -8,7 +8,7 @@ GamesShop is an ASP.NET Core MVC project developed for an online gaming store. T
 - View related products
 - User registration and login
 - User types: admin and normal user
-- Admin dashboard to edit, or delete games
+- Admin dashboard to add, edit and delete games 
 - Checkout form template
 
 ## Technologies Used
