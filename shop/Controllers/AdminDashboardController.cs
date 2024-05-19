@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using shop.Interfaces;
+using shop.Models;
 using shop.ViewModels;
 
 namespace shop.Controllers
@@ -39,7 +40,39 @@ namespace shop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAsync(EditGameViewModel model)
+        public IActionResult Edit(EditGameViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var game = new Game
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Description = model.Description,
+                Genre = model.Genre,
+                IsOnSale = model.IsOnSale,
+                Price = model.Price,
+                PriceAfterSale = model.PriceAfterSale,
+                ImagePath = model.ImagePath,
+                Alt = model.Alt
+            };
+
+            _dashboardRepository.Add(game);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddAsync(EditGameViewModel model)
         {
             if (!ModelState.IsValid)
             {

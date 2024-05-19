@@ -21,6 +21,12 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.Identity.IsAuthenticated)
                         {
+                            @if (User.IsInRole("admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="AdminDashboard" asp-action="Add">Add Game</a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link text-danger" asp-area="" asp-controller="Account" asp-action="Logout">
                                     <span class="h6 mb-0">Logout</span>
