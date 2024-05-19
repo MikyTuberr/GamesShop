@@ -44,29 +44,6 @@ namespace shop.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CheckoutAsync()
-        {
-            var clientId = _cookieService.GetCookie("clientId");
-            if (clientId == null)
-            {
-                throw new InvalidOperationException("clientId is null");
-            }
-            var cart = await _cartRepository.GetCartByClientId(clientId);
-
-            if (cart == null)
-            {
-                throw new InvalidOperationException("Cart is null.");
-            }
-
-            var viewModel = new CartViewModel
-            {
-                GamesAndQuantities = cart.GamesAndQuantities
-            };
-
-            return View(viewModel);
-        }
-
-        [HttpGet]
         public async Task<IActionResult> AddToCartWithQuantityAsync(int gameId, int quantity, string path)
         {
             var clientId = _cookieService.GetCookie("clientId");
@@ -102,6 +79,7 @@ namespace shop.Controllers
             return Route(path, gameId);
         }
 
+        [HttpGet]
         public IActionResult Route(string path, int gameId)
         {
             if (path.Contains("Index"))

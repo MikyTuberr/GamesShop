@@ -20,10 +20,5 @@ namespace shop.Models
         public decimal? PriceAfterSale { get; set; }
         public required string ImagePath { get; set; }
         public required string Alt {  get; set; }
-
-        public static explicit operator Game(Task<Game> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

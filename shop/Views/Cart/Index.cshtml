@@ -57,7 +57,7 @@
                     }
                     <div class="cart_buttons">
                         <a asp-area="" asp-controller="Home" asp-action="Index" class="button cart_button_clear">Back To Shopping</a>
-                        <a asp-area ="" asp-controller="Cart" asp-action="Checkout" class="button cart_button_checkout">Continue ($@(Model.GamesAndQuantities.Sum(item => item.Game.Price * item.Quantity)))</a>
+                        <a asp-area ="" asp-controller="Checkout" asp-action="Index" class="button cart_button_checkout">Continue ($@(Model.GamesAndQuantities.Sum(item => item.Game.Price * item.Quantity)))</a>
                     </div>
                 </div>
             </div>

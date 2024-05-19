@@ -39,6 +39,11 @@
                                     <div class="btn-group">
                                         <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">View</a>
                                         <a asp-area="" asp-controller="Cart" asp-action="AddToCartWithQuantity" asp-route-gameId="@item.Id" asp-route-quantity="1" asp-route-Path="Index" class="btn btn-sm btn-outline-secondary">Add to cart</a>
+                                        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                        {
+                                            <a asp-area="" asp-controller="AdminDashboard" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                            <a asp-area="" asp-controller="AdminDashboard" asp-action="Delete" asp-route-id="@item.Id"  class="btn btn-sm btn-outline-secondary">Delete</a>
+                                        }
                                     </div>
                                     <div class="text-center">
                                         @if (item.IsOnSale && item.PriceAfterSale != null)

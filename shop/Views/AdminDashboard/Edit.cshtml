@@ -1,0 +1,65 @@
+﻿@model shop.ViewModels.EditGameViewModel
+
+@{
+    ViewData["Title"] = "Edit Game";
+}
+
+<h1>Edit Game</h1>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" placeholder="Enter game name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" placeholder="Enter game description" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Genre"></label>
+        <input asp-for="Genre" class="form-control" placeholder="Enter game genre" />
+        <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2 mt-2">
+        <input asp-for="IsOnSale" class="form-check-input" type="checkbox" />
+        <label asp-for="IsOnSale" class="form-check-label"></label>
+        <span asp-validation-for="IsOnSale" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" placeholder="Enter game price" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PriceAfterSale"></label>
+        <input asp-for="PriceAfterSale" class="form-control" placeholder="Enter price after sale (if applicable)" />
+        <span asp-validation-for="PriceAfterSale" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImagePath"></label>
+        <input asp-for="ImagePath" class="form-control" placeholder="Enter image path" />
+        <span asp-validation-for="ImagePath" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Alt"></label>
+        <input asp-for="Alt" class="form-control" placeholder="Enter image alt text" />
+        <span asp-validation-for="Alt" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

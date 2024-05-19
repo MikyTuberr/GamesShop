@@ -8,6 +8,9 @@ using shop.Services;
 using System;
 using shop.Interfaces;
 using shop.Repositories;
+using Autofac.Core;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +19,8 @@ builder.Services.AddScoped<IHomeRepository, HomeRepository>();
 builder.Services.AddScoped<ICookieService, CookieService>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICheckoutRepository, CheckoutRepository>();
+builder.Services.AddScoped<IAdminDashboardRepository, AdminDashboardRepository>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -32,6 +37,16 @@ builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie();
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[] { "en-US", "fr-FR", "de-DE", "pl-PL" };
+    options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.SupportedCultures = supportedCultures.Select(c => new CultureInfo(c)).ToList();
+    options.SupportedUICultures = supportedCultures.Select(c => new CultureInfo(c)).ToList();
+});
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
