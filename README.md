@@ -20,7 +20,7 @@ GamesShop is an ASP.NET Core MVC project developed for an online gaming store. T
 ## License
 This project is licensed under the [Apache License 2.0](LICENSE.txt)
 
-## Screenshots
+# Screenshots
 
 ## Main Page
 ![Zrzut ekranu (3)](https://github.com/MikyTuberr/GamesShop/assets/120327639/50ac586d-9524-40e0-a5f5-91f111eafc22)
