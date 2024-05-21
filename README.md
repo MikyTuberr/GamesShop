@@ -30,5 +30,5 @@ This project is licensed under the [Apache License 2.0](LICENSE.txt)
 ![Zrzut ekranu (5)](https://github.com/MikyTuberr/GamesShop/assets/120327639/950648b0-2c55-473b-945f-9aca66e8229f)
 ## Checkout Page
 ![Zrzut ekranu (6)](https://github.com/MikyTuberr/GamesShop/assets/120327639/bf951ed6-6092-4eaf-8d75-1eaece42f115)
-## Admin Dashboard after login
+## Admin Dashboard After Logging In
 ![Bez tytułu — Profil 1 — Microsoft​ Edge 21 05 2024 14_15_59](https://github.com/MikyTuberr/GamesShop/assets/120327639/8c7de6fc-aa49-45ba-84b4-27143f69f4bc)
